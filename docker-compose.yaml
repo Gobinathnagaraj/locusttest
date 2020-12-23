@@ -1,0 +1,17 @@
+
+version: '3'
+
+services:
+  master:
+    image: gobi27/locusttest_1
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locustdemo/locust.py --master -H http://master:8089
+
+  worker:
+    image: gobi27/locusttest_1
+    volumes:
+      - ./:/mnt/locust
+    command: -f /mnt/locustdemo/locust.py --worker --master-host master
